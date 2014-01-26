@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="net.brusd.unforgettable"
+          android:versionCode="1"
+          android:versionName="1.0"
+          android:installLocation="preferExternal">
+    <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="19"/>
+
+    <application android:label="@string/app_name"
+                 android:icon="@drawable/ic_launcher"
+
+                 >
+
+        <activity android:name=".ActivityPackeg.MainActivity"
+                  android:label="@string/app_name"
+                  android:theme="@style/Theme.AppCompat.Light"
+                  android:screenOrientation="portrait"
+                  >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ActivityPackeg.WidgetSettingActyvity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:label="@string/widget_activity_string">
+        </activity>
+
+        <activity android:name=".ActivityPackeg.SettingsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:label="@string/setting_button_text">
+        </activity>
+
+        <activity android:name=".ActivityPackeg.AboutAppActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:label="@string/about_app_activity_stripng">
+        </activity>
+
+        <activity android:name=".ActivityPackeg.DetailsQuoteActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light"
+            >
+        </activity>
+
+        <activity android:name=".ActivityPackeg.FavoriteQuoteActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light"
+            >
+        </activity>
+        <activity android:name="com.google.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+
+        <receiver android:name=".WidgetPackage.QuoteWidgetProvider">
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/appwidget_provider"
+                />
+
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+        </receiver>
+    </application>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+</manifest>

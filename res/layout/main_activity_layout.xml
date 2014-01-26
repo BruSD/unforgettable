@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:id="@+id/drawer_layout"
+        >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:id="@+id/ads_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/transparent"/>
+
+        <FrameLayout
+            android:id="@+id/fragment_content_frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/ads_layout">
+        </FrameLayout>
+
+
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:orientation="vertical"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:background="#0099CC"
+
+
+            >
+            <Button
+                android:id="@+id/show_last_quote_news_button"
+                android:text="@string/quote_button_text"
+                android:drawableRight="@drawable/ic_action_labels"
+
+                style="@style/ButtonDrawerStyle"/>
+
+            <Button
+                android:id="@+id/show_all_qoute_theme_buton"
+                android:text="@string/theme_button_text"
+                android:drawableRight="@drawable/ic_action_collection"
+
+                style="@style/ButtonDrawerStyle"/>
+
+            <Button
+                android:id="@+id/user_themes_button"
+                android:text="@string/user_themes_button_text"
+
+                android:visibility="gone"
+
+                style="@style/ButtonDrawerStyle"/>
+
+            <Button
+                android:id="@+id/favorite_quote_button"
+                android:text="@string/favorite_quote_button_text"
+                android:drawableRight="@drawable/ic_action_favorite"
+
+                style="@style/ButtonDrawerStyle"
+                />
+            <Button
+                android:id="@+id/widget_seting_button"
+                android:text="@string/setting_button_text"
+                android:drawableRight="@drawable/ic_action_settings"
+
+                style="@style/ButtonDrawerStyle"
+                />
+            <Button
+                android:id="@+id/about_app_button"
+                android:text="@string/about_app_button_text"
+                android:drawableRight="@drawable/ic_action_info"
+
+                style="@style/ButtonDrawerStyle"
+                />
+
+
+    </LinearLayout>
+</android.support.v4.widget.DrawerLayout>
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ButtonDrawerStyle" parent="@android:style/Widget.Button">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/selector_drawer_layout_button</item>
+        <item name="android:gravity">left|center</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ImageButtonNextPreviousStyle" parent="@android:style/Widget.Button">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:background">@drawable/selector_drawer_layout_button</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:adjustViewBounds">true</item>
+
+    </style>
+
+    <style name="AboutAppTextViewStyle" parent="@android:style/Widget.TextView">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:gravity">left</item>
+
+    </style>
+    <style name="AboutAppCountTextViewStyle" parent="@android:style/Widget.TextView">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:gravity">center</item>
+
+    </style>
+
+    <style name="DialogWithoutTitle" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+
+    </style>
+</resources>

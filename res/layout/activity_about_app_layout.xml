@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+        <TextView
+            android:id="@+id/theme_text_view"
+            style="@style/AboutAppTextViewStyle"
+            android:text="@string/theme_on_phone_string"
+            />
+        <TextView
+            android:id="@+id/count_of_theme_text_view"
+            style="@style/AboutAppCountTextViewStyle"
+            android:layout_weight="2"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+        <TextView
+            android:id="@+id/quote_text_view"
+            style="@style/AboutAppTextViewStyle"
+            android:text="@string/quote_on_phone_string"/>
+        <TextView
+            android:id="@+id/count_of_quote_text_view"
+            style="@style/AboutAppCountTextViewStyle"
+            android:layout_weight="2"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+        <TextView
+            android:id="@+id/favorite_quote_text_view"
+            style="@style/AboutAppTextViewStyle"
+            android:text="@string/favorite_quote_string"/>
+        <TextView
+            android:id="@+id/count_of_favorite_quote_text_view"
+            style="@style/AboutAppCountTextViewStyle"
+            android:layout_weight="2"/>
+    </LinearLayout>
+
+</LinearLayout>

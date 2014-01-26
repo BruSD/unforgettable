@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:id="@+id/ads_layout_on_favorite_quote"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:background="@android:color/transparent"/>
+        <LinearLayout
+            android:layout_above="@id/ads_layout_on_favorite_quote"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+                <LinearLayout
+                    android:id="@+id/navigation_between_favorite_quotes_linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+
+                    >
+                    <ImageButton
+                        android:id="@+id/go_to_previous_favorite_quote_image_button"
+                        android:src="@drawable/ic_action_previous_item"
+
+                        style="@style/ImageButtonNextPreviousStyle"/>
+                    <TextView
+                        android:id="@+id/theme_favorite_quote_name_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        />
+                    <ImageButton
+                        android:id="@+id/go_to_next_favorite_quote_image_button"
+                        android:src="@drawable/ic_action_next_item"
+
+                        style="@style/ImageButtonNextPreviousStyle"/>
+
+                </LinearLayout>
+                <FrameLayout
+                    android:id="@+id/favorite_quote_frame_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

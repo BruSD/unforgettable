@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Activity Names-->
+    <string name="app_name">Незабываемые</string>
+    <string name="widget_activity_string">Настройки Виджета</string>
+    <string name="about_app_activity_stripng">О Приложении</string>
+
+    <!--Drawer Strings-->
+    <string name="drawer_open">Меню</string>
+    <string name="quote_button_text"> Твоя Цитата Дня</string>
+    <string name="theme_button_text">Темы</string>
+    <string name="user_themes_button_text">Мой Темы</string>
+    <string name="setting_button_text">Настройки</string>
+    <string name="widget_setting_button_text">Настройки Виджета</string>
+    <string name="about_app_button_text">О Приложении</string>
+    <string name="favorite_quote_button_text">Любимые цитаты</string>
+
+    <!--Action Bar TitleText-->
+    <string name="quote_of_all_selected_string">Цитата</string>
+
+    <!--Temp String-->
+    <string name="user_theme_name_string">Пользовательские цитаты</string>
+    <string name="user_theme_description_string">В эту тему вы можете добавлять свои цитаты</string>
+
+    <!--Toast Information String-->
+    <string name="quote_add_to_favorite_toast_string">Цитата добавлена к списку любимых!</string>
+    <string name="quote_remove_from_favorite_toast_string">Цитата удалена из любимых!</string>
+
+    <!--You have no one Favorite Quote-->
+    <string name="you_have_no_one_favorite_quote_string">У Вас пока что нету ни одной любимой цитаты</string>
+    <string name="to_add_quote_to_favrite_string">Для того чтобы добавить цитату в любимые: найдите пустые мозги возле цитаты, нажмите на них</string>
+    <string name="when_brain_will_be_full_string">Когда иконка мозга будет заполнена черным, цитата добавлена в любимые!</string>
+
+    <!--About App Text-->
+
+    <string name="theme_on_phone_string">Тем</string>
+    <string name="quote_on_phone_string">Цитат</string>
+    <string name="favorite_quote_string">Любимых Цитат</string>
+
+</resources>

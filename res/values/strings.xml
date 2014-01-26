@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Activity Names-->
+    <string name="app_name">Unforgettable</string>
+    <string name="widget_activity_string">Widget Setting</string>
+    <string name="about_app_activity_stripng">About App</string>
+
+    <!--Drawer Strings-->
+    <string name="drawer_open">Menu</string>
+    <string name="quote_button_text">Your Quote of The Day</string>
+    <string name="theme_button_text">Themes</string>
+    <string name="user_themes_button_text">My Themes</string>
+    <string name="setting_button_text">Setting</string>
+    <string name="widget_setting_button_text">Widget Setting</string>
+    <string name="about_app_button_text">About App</string>
+    <string name="favorite_quote_button_text">Favorite Quote</string>
+
+    <!--Action Bar TitleText-->
+    <string name="quote_of_all_selected_string">Quote</string>
+
+    <!--Temp String-->
+
+    <string name="user_theme_name_string">User Theme</string>
+    <string name="user_theme_description_string">You can add your quote in this Theme</string>
+
+    <!--Toast Information String-->
+    <string name="quote_add_to_favorite_toast_string">Quote add to favorite!</string>
+    <string name="quote_remove_from_favorite_toast_string">Quote remove from favorite!</string>
+
+    <!--You have no one Favorite Quote-->
+    <string name="you_have_no_one_favorite_quote_string">You haven"'"t no one Favorite Quote</string>
+    <string name="to_add_quote_to_favrite_string">To add quote to favorite find empty brain and push them</string>
+    <string name="when_brain_will_be_full_string">When brain will be full, quote added to favorite</string>
+
+    <!--About App Text-->
+
+    <string name="theme_on_phone_string">Theme on Phone</string>
+    <string name="quote_on_phone_string">Quote on Phone</string>
+    <string name="favorite_quote_string">Favorite Quote</string>
+
+
+</resources>
