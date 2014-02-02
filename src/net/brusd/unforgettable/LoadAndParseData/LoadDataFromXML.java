@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import net.brusd.unforgettable.AppDatabase.AppDB;
 import net.brusd.unforgettable.GlobalPackeg.SharedPreferencesSticker;
 import net.brusd.unforgettable.ActivityPackeg.MainActivity;
+import net.brusd.unforgettable.R;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -70,6 +71,8 @@ public class LoadDataFromXML {
         protected void onPreExecute() {
             super.onPreExecute();
             dialog = new ProgressDialog(activity);
+            dialog.setCancelable(false);
+            dialog.setMessage(activity.getResources().getString(R.string.load_data_string));
             dialog.show();
         }
 

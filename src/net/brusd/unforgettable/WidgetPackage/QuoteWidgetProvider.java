@@ -1,5 +1,6 @@
 package net.brusd.unforgettable.WidgetPackage;
 
+import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -7,9 +8,12 @@ import android.content.ComponentName;
 import android.content.Context;
 
 import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import net.brusd.unforgettable.AppDatabase.AppDB;
 import net.brusd.unforgettable.GlobalPackeg.Constants;
@@ -72,7 +76,8 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
             quote = DataStoreg.getWidgetQuote();
 
             addQuoteToFavorite();
-            setQuoteFavoritStatusImage();
+            setQuoteFavoriteStatusImage();
+
             rv.setImageViewResource(R.id.favorite_widget_image_button, quoteFavoritStatusImage);
 
             final AppWidgetManager mgr = AppWidgetManager.getInstance(context);
@@ -125,6 +130,13 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
+
+        super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions);
+    }
+
     private void setDataToView(){
         int showingMode = SharedPreferencesSticker.getWidgetShowingMode(context);
         switch (showingMode)  {
@@ -137,7 +149,7 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
                 break;
 
             case Constants.WIDGET_PREFERENCE_SHOW_RANDOM_QUOTE_OF_FAVORITE_QUOTE:
-
+                loadRandomQuoteFromFromFavoriteToWidgetView();
                 break;
 
             case Constants.WIDGET_PREFERENCE_SHOW_RANDOM_QUOTE_OF_SELECTED_THEME:
@@ -157,7 +169,7 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
         quote.setThemeQuoteName(appDB.getThemeNameByThemeID(quote.getQuoteThemeID()));
         refreshButtonVisability = View.INVISIBLE;
 
-        setQuoteFavoritStatusImage();
+        setQuoteFavoriteStatusImage();
     }
 
     private void loadRandomQuotToWidgetView(){
@@ -168,11 +180,23 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
             quote.setThemeQuoteName(appDB.getThemeNameByThemeID(quote.getQuoteThemeID()));
             refreshButtonVisability = View.VISIBLE;
 
-            setQuoteFavoritStatusImage();
+            setQuoteFavoriteStatusImage();
         }
     }
 
-    private void setQuoteFavoritStatusImage(){
+    private void loadRandomQuoteFromFromFavoriteToWidgetView(){
+        quote = appDB.getRandomFavoriteQuote();
+        if (quote != null){
+            DataStoreg.setWidgetQuote(quote);
+            quote.setQuoteIsFavorite(appDB.isQuoteFavorite(quote.getQuoteID()));
+            quote.setThemeQuoteName(appDB.getThemeNameByThemeID(quote.getQuoteThemeID()));
+            refreshButtonVisability = View.VISIBLE;
+
+            setQuoteFavoriteStatusImage();
+        }
+    }
+
+    private void setQuoteFavoriteStatusImage(){
         if(quote.isFavorite()){
             quoteFavoritStatusImage = R.drawable.ic_status_quote_favorite;
         }else {
@@ -184,9 +208,11 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
         if(quote.isFavorite()){
             appDB.removeQuoteFromFavorite(quote.getQuoteID());
             quote.setQuoteIsFavorite(appDB.isQuoteFavorite(quote.getQuoteID()));
+            Toast.makeText(context, context.getString(R.string.quote_remove_from_favorite_toast_string), Toast.LENGTH_LONG).show();
         }else {
             appDB.addQuoteToFavoriteById(quote.getQuoteID());
             quote.setQuoteIsFavorite(appDB.isQuoteFavorite(quote.getQuoteID()));
+            Toast.makeText(context, context.getString(R.string.quote_add_to_favorite_toast_string), Toast.LENGTH_LONG).show();
         }
     }
 }

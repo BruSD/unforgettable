@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import net.brusd.unforgettable.GlobalPackeg.Quote;
+import net.brusd.unforgettable.GlobalPackeg.SharedPreferencesSticker;
 import net.brusd.unforgettable.R;
 
 import java.util.Random;
@@ -471,6 +472,56 @@ public class AppDB {
         }
         close();
         return favoriteQuoteCount;
+    }
+
+    public  Quote getRandomFavoriteQuote(){
+        Quote quote  =  null;
+        int randomQuote = 0;
+        int randomeQuoteID = 0;
+        Cursor cursorWithQuote = null;
+        Random r = new Random();
+        if (!appDB.isOpen())
+            open();
+
+        Cursor cursorAllQuote = appDB.query(AppOpenHelper.TABLE_FAVORITE_QUOTE,
+                new String[]{AppOpenHelper.TABLE_FAVORITE_QUOTE_COLUMN_ID_Quote, },
+                null,
+                null,
+                null,
+                null,
+                null);
+
+        if(cursorAllQuote.moveToFirst()){
+            int maxRandom = cursorAllQuote.getCount();
+            randomQuote = r.nextInt(maxRandom);
+            cursorAllQuote.move(randomQuote);
+            randomeQuoteID = cursorAllQuote.getInt(0);
+
+                    cursorWithQuote = appDB.query(AppOpenHelper.TABLE_QUOTE,
+                    new String[]{AppOpenHelper.TABLE_QUOTE_COLUMN_ID_Quote,
+                            AppOpenHelper.TABLE_QUOTE_COLUMN_Quote,
+                            AppOpenHelper.TABLE_QUOTE_COLUMN_Quote_Sorce,
+                            AppOpenHelper.TABLE_QUOTE_COLUMN_Quote_Theme_ID, },
+                    AppOpenHelper.TABLE_QUOTE_COLUMN_ID_Quote + " = "+ randomeQuoteID ,
+                    null,
+                    null,
+                    null,
+                    null);
+        } else{
+            cursorWithQuote =  getCursorWithQuoteByID(SharedPreferencesSticker.getQuoteOfTheDayID(context));
+        }
+
+
+
+        if (cursorWithQuote.moveToFirst()){
+            quote = new Quote(cursorWithQuote.getInt(0),
+                    cursorWithQuote.getString(1),
+                    cursorWithQuote.getString(2),
+                    cursorWithQuote.getInt(3));
+        }
+        close();
+
+        return quote;
     }
 
 

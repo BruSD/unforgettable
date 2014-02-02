@@ -79,7 +79,7 @@ public class SharedPreferencesSticker {
     }
     public static boolean getAnalyticsStatus(Activity activity){
         settings =  getSharedPreferencesOfStiker(activity);
-        return  settings.getBoolean(PREFS_ANALYTCS, true);
+        return settings.getBoolean(PREFS_ANALYTCS, false);// settings.getBoolean(PREFS_ANALYTCS, true);
     }
 
     public static int getWidgetShowingMode(Context context){

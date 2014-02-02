@@ -60,7 +60,7 @@ public class MainActivity extends ActionBarActivity {
 
 
         mDrawerTitle = getString(R.string.drawer_open);
-        mTitle = getString(R.string.app_name);
+        mTitle = getString(R.string.quote_button_text);
 
         if (!SharedPreferencesSticker.isDataLoadFromXML(this)){
             LoadDataFromXML.LoadDataFromXML(this);
@@ -82,7 +82,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
         adMobAds.createAdView();
-
+        getSupportActionBar().setTitle(mTitle);
 
     }
     @Override
@@ -195,7 +195,7 @@ public class MainActivity extends ActionBarActivity {
         public void onClick(View view) {
             mDrawerLayout.closeDrawers();
 
-            Intent intent = new Intent(MainActivity.this, WidgetSettingActyvity.class);
+            Intent intent = new Intent(MainActivity.this, WidgetSettingActivity.class);
             startActivity(intent);
         }
     }

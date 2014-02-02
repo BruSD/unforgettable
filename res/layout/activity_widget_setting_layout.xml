@@ -4,9 +4,25 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Настройки Виджета тут"/>
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/widget_setting_quote_load_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/quote_settings_mode_string"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+        <Spinner
+            android:id="@+id/widget_setting_quote_mode_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            />
+
+        </LinearLayout>
 
 </LinearLayout>

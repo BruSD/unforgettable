@@ -30,7 +30,9 @@ public class DataStoreg {
         NetworkInfo ni = cm.getActiveNetworkInfo();
 
         if (ni != null && ni.isConnected())
-            return true;
+            //TODO: To showing ads returning true
+            //return true;
+            return false;
         else
             return false;
     }

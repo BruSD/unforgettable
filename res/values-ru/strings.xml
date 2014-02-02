@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Activity Names-->
-    <string name="app_name">Незабываемые</string>
+    <string name="app_name">Колекция Цитат</string>
     <string name="widget_activity_string">Настройки Виджета</string>
     <string name="about_app_activity_stripng">О Приложении</string>
 
@@ -36,5 +36,15 @@
     <string name="theme_on_phone_string">Тем</string>
     <string name="quote_on_phone_string">Цитат</string>
     <string name="favorite_quote_string">Любимых Цитат</string>
+
+    <!--Widget Setting Text-->
+    <string name="quote_settings_mode_string">Цитаты в Виджете</string>
+
+    <!--Array-->
+    <string-array name="widget_mode_araay_string">
+        <item>Цитата Дня</item>
+        <item>Случайная Цитата</item>
+        <item>Случайная Любимая Цитата</item>
+    </string-array>
 
 </resources>

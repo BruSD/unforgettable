@@ -13,12 +13,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import net.brusd.unforgettable.AdsAndAnalytics.AdMobAds;
 import net.brusd.unforgettable.AppDatabase.AppDB;
 import net.brusd.unforgettable.GlobalPackeg.DataStoreg;
 import net.brusd.unforgettable.FragmentPackeg.QuoteFragment;
+import net.brusd.unforgettable.GlobalPackeg.OnSwipeTouchListener;
 import net.brusd.unforgettable.R;
 
 /**
@@ -32,6 +34,7 @@ public class DetailsQuoteActivity extends ActionBarActivity {
     private ImageButton nextQuoteImageButton, previousQuoteImageButton;
     private TextView themeNameTextView;
     private  Intent shareIntent;
+    private RelativeLayout swipeContainer;
 
     private AdMobAds adMobAds;
 
@@ -42,6 +45,8 @@ public class DetailsQuoteActivity extends ActionBarActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         appDB = AppDB.getInstance(this);
+        swipeContainer = (RelativeLayout)findViewById(R.id.swipe_container_relative_layout);
+        swipeContainer.setOnTouchListener(new FragmentSwipeDetector());
 
         commitQuoteFragmentFirstTime();
 
@@ -60,6 +65,7 @@ public class DetailsQuoteActivity extends ActionBarActivity {
         adMobAds = new AdMobAds(this, adLinerLayout);
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -187,6 +193,36 @@ public class DetailsQuoteActivity extends ActionBarActivity {
 
 
             commitQuoteFragment();
+        }
+    }
+
+    private class FragmentSwipeDetector extends OnSwipeTouchListener{
+        @Override
+        public void onSwipeLeft() {
+            if (!DataStoreg.quoteSpeckCursor.isLast()){
+                DataStoreg.quoteSpeckCursor.moveToNext();
+                ft = getSupportFragmentManager().beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                ft.setCustomAnimations(R.anim.show_fragment_from_right_animation, R.anim.hide_fragment_to_left_animation);
+
+                commitQuoteFragment();
+            }
+            super.onSwipeLeft();
+        }
+
+        @Override
+        public void onSwipeRight() {
+            if(!DataStoreg.quoteSpeckCursor.isFirst()){
+
+                DataStoreg.quoteSpeckCursor.moveToPrevious();
+                ft = getSupportFragmentManager().beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                ft.setCustomAnimations(R.anim.show_fragment_from_left_animation, R.anim.hide_fragment_to_right_animation);
+
+
+                commitQuoteFragment();
+            }
+            super.onSwipeRight();
         }
     }
 }

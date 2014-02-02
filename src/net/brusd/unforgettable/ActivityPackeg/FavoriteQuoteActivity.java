@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import net.brusd.unforgettable.AdsAndAnalytics.AdMobAds;
@@ -22,6 +23,7 @@ import net.brusd.unforgettable.AppDatabase.AppDB;
 import net.brusd.unforgettable.GlobalPackeg.DataStoreg;
 import net.brusd.unforgettable.FragmentPackeg.FavoriteQuoteFragment;
 import net.brusd.unforgettable.FragmentPackeg.NowFavoriteQuoteFragment;
+import net.brusd.unforgettable.GlobalPackeg.OnSwipeTouchListener;
 import net.brusd.unforgettable.R;
 
 /**
@@ -37,6 +39,8 @@ public class FavoriteQuoteActivity extends ActionBarActivity{
 
     private ImageButton nextFavoriteQuoteImageButton, previousFavoriteQuoteImageButton;
     private TextView themeFavoriteNameTextView;
+    private RelativeLayout swipeContainer;
+
 
     private AdMobAds adMobAds;
     @Override
@@ -44,6 +48,9 @@ public class FavoriteQuoteActivity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_favorite_quote_layout);
+
+        swipeContainer = (RelativeLayout)findViewById(R.id.swipe_container);
+        swipeContainer.setOnTouchListener(new FragmentSwipeDetector());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -180,9 +187,11 @@ public class FavoriteQuoteActivity extends ActionBarActivity{
 
 
     public void commitFavoriteQuoteFragment(){
+        getCurentFavoriteQuote();
+
         checkAvailableNavigationButton();
 
-        getCurentFavoriteQuote();
+
 
 
         updateShareIntent();
@@ -242,5 +251,39 @@ public class FavoriteQuoteActivity extends ActionBarActivity{
         int themeD = DataStoreg.cursorWithOneFavoriteQuote.getInt(3);
         String themeName = appDB.getThemeNameByThemeID(themeD);
         themeFavoriteNameTextView.setText(themeName);
+    }
+
+    private class FragmentSwipeDetector extends OnSwipeTouchListener {
+        @Override
+        public void onSwipeLeft() {
+
+            if (!DataStoreg.favoriteQuoteIDSpeckCursor.isLast()){
+
+                DataStoreg.favoriteQuoteIDSpeckCursor.moveToNext();
+                ft = getSupportFragmentManager().beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                ft.setCustomAnimations(R.anim.show_fragment_from_right_animation, R.anim.hide_fragment_to_left_animation);
+
+                commitFavoriteQuoteFragment();
+            }
+            super.onSwipeLeft();
+        }
+
+        @Override
+        public void onSwipeRight() {
+
+            if(!DataStoreg.favoriteQuoteIDSpeckCursor.isFirst()){
+
+                DataStoreg.favoriteQuoteIDSpeckCursor.moveToPrevious();
+
+                ft = getSupportFragmentManager().beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                ft.setCustomAnimations(R.anim.show_fragment_from_left_animation, R.anim.hide_fragment_to_right_animation);
+
+
+                commitFavoriteQuoteFragment();
+            }
+            super.onSwipeRight();
+        }
     }
 }
