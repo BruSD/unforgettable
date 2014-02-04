@@ -17,7 +17,7 @@ public class PrepareDataToView {
     private static AppDB appDB = null;
 
     public static ArrayList<HashMap<String, String>> getAllThemeWithQuoteCount(Activity activity){
-        ArrayList<HashMap<String, String>> allTheme = new ArrayList<>();
+        ArrayList<HashMap<String, String>> allTheme = new ArrayList<HashMap<String, String>>();
         int themeQuoteCount = 0;
         appDB = AppDB.getInstance(activity);
 
