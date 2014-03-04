@@ -77,9 +77,9 @@ public class SharedPreferencesSticker {
         // Commit the edits!
         editor.commit();
     }
-    public static boolean getAnalyticsStatus(Activity activity){
-        settings =  getSharedPreferencesOfStiker(activity);
-        return settings.getBoolean(PREFS_ANALYTCS, false);// settings.getBoolean(PREFS_ANALYTCS, true);
+    public static boolean getAnalyticsStatus(Context context){
+        settings =  getSharedPreferencesOfStiker(context);
+        return settings.getBoolean(PREFS_ANALYTCS, true);// settings.getBoolean(PREFS_ANALYTCS, true);
     }
 
     public static int getWidgetShowingMode(Context context){

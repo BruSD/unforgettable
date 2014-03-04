@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import net.brusd.unforgettable.AdsAndAnalytics.Constant;
+import net.brusd.unforgettable.AdsAndAnalytics.GAClass;
 import net.brusd.unforgettable.AppDatabase.AppDB;
 import net.brusd.unforgettable.GlobalPackeg.Constants;
 import net.brusd.unforgettable.GlobalPackeg.DataStoreg;
@@ -27,6 +29,7 @@ import net.brusd.unforgettable.R;
  */
 public class QuoteWidgetProvider extends AppWidgetProvider {
 
+    private GAClass gaClass;
 
     private Quote quote;
     private Context context;
@@ -43,7 +46,8 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
         context = _context;
 
         if (action.equals(CLICK_ACTION_REFRESH_QUOTE)) {
-
+            gaClass = new GAClass(context);
+            gaClass.sendEvent(Constant.EVENT_CATEGORY_WIDGET, Constant.EVENT_ACTION_WIDGET_MANUAL_UPDATE);
             final int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                     AppWidgetManager.INVALID_APPWIDGET_ID);
 
@@ -53,7 +57,7 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
             final RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_quote_layout);
 
 
-            rv.setTextViewText(R.id.theme_name_in_widget_text_view, quote.getThemeQuoteName());
+
 
             rv.setTextViewText(R.id.quote_widget_text_view, quote.getQuote());
             rv.setTextViewText(R.id.quote_source_widget_text_view, Html.fromHtml("&#169;") + quote.getQuoteSource());
@@ -89,9 +93,9 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context _context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         final int N = appWidgetIds.length;
         context = _context;
+        gaClass = new GAClass(context);
 
-
-
+        gaClass.sendEvent(Constant.EVENT_CATEGORY_WIDGET, Constant.EVENT_ACTION_WIDGET_TIMER_UPDATE);
         // Perform this loop procedure for each App Widget that belongs to this provider
         for (int i=0; i<N; i++) {
             int appWidgetId = appWidgetIds[i];
@@ -102,8 +106,6 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
             // Get the layout for the App Widget and attach an on-click listener
             // to the button
             RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.widget_quote_layout);
-
-            rv.setTextViewText(R.id.theme_name_in_widget_text_view, quote.getThemeQuoteName());
 
             rv.setTextViewText(R.id.quote_widget_text_view, quote.getQuote());
             rv.setTextViewText(R.id.quote_source_widget_text_view, Html.fromHtml("&#169;") + quote.getQuoteSource());
@@ -127,8 +129,11 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
             // Tell the AppWidgetManager to perform an update on the current app widget
             appWidgetManager.updateAppWidget(appWidgetId, rv);
         }
+
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
+
+
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override

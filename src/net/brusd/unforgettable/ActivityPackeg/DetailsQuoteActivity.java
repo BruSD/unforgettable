@@ -11,12 +11,18 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import net.brusd.unforgettable.AdsAndAnalytics.AdMobAds;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+
+import net.brusd.unforgettable.AdsAndAnalytics.Constant;
 import net.brusd.unforgettable.AppDatabase.AppDB;
 import net.brusd.unforgettable.GlobalPackeg.DataStoreg;
 import net.brusd.unforgettable.FragmentPackeg.QuoteFragment;
@@ -35,8 +41,9 @@ public class DetailsQuoteActivity extends ActionBarActivity {
     private TextView themeNameTextView;
     private  Intent shareIntent;
     private RelativeLayout swipeContainer;
+    private FrameLayout frameLayout;
 
-    private AdMobAds adMobAds;
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +51,12 @@ public class DetailsQuoteActivity extends ActionBarActivity {
         setContentView(R.layout.activity_qoute_details_layout);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        appDB = AppDB.getInstance(this);
-        swipeContainer = (RelativeLayout)findViewById(R.id.swipe_container_relative_layout);
-        swipeContainer.setOnTouchListener(new FragmentSwipeDetector());
 
+        appDB = AppDB.getInstance(this);
+        //swipeContainer = (RelativeLayout)findViewById(R.id.swipe_container_relative_layout);
+        //swipeContainer.setOnTouchListener(new FragmentSwipeDetector());
+        frameLayout = (FrameLayout)findViewById(R.id.quote_frame_layout);
+        //frameLayout.setOnTouchListener(new FragmentSwipeDetector());
         commitQuoteFragmentFirstTime();
 
         previousQuoteImageButton = (ImageButton)findViewById(R.id.go_to_previous_quote_image_button);
@@ -61,20 +70,31 @@ public class DetailsQuoteActivity extends ActionBarActivity {
 
         checkAvailableNavigationButton();
 
-        LinearLayout adLinerLayout = (LinearLayout)findViewById(R.id.ads_layout_on_detail_quote);
-        adMobAds = new AdMobAds(this, adLinerLayout);
+        initializeAdLayout();
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        adMobAds.createAdView();
+        if (adView != null)
+            adView.resume();
     }
+
+    @Override
+    protected void onPause() {
+        if (adView != null)
+            adView.pause();
+        super.onPause();
+
+    }
+
     @Override
     protected void onDestroy() {
+        if (adView != null)
+            adView.destroy();
         super.onPause();
-        adMobAds.destroiAdView();
+
     }
 
     @Override
@@ -195,34 +215,68 @@ public class DetailsQuoteActivity extends ActionBarActivity {
             commitQuoteFragment();
         }
     }
+    public void onSwipeLeftDetected() {
+        if (!DataStoreg.quoteSpeckCursor.isLast()){
+            DataStoreg.quoteSpeckCursor.moveToNext();
+            ft = getSupportFragmentManager().beginTransaction();
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.setCustomAnimations(R.anim.show_fragment_from_right_animation, R.anim.hide_fragment_to_left_animation);
+
+            commitQuoteFragment();
+        }
+    }
+    public void onSwipeRightDetected(){
+        if(!DataStoreg.quoteSpeckCursor.isFirst()){
+
+            DataStoreg.quoteSpeckCursor.moveToPrevious();
+            ft = getSupportFragmentManager().beginTransaction();
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.setCustomAnimations(R.anim.show_fragment_from_left_animation, R.anim.hide_fragment_to_right_animation);
+
+
+            commitQuoteFragment();
+        }
+    }
 
     private class FragmentSwipeDetector extends OnSwipeTouchListener{
         @Override
         public void onSwipeLeft() {
-            if (!DataStoreg.quoteSpeckCursor.isLast()){
-                DataStoreg.quoteSpeckCursor.moveToNext();
-                ft = getSupportFragmentManager().beginTransaction();
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                ft.setCustomAnimations(R.anim.show_fragment_from_right_animation, R.anim.hide_fragment_to_left_animation);
 
-                commitQuoteFragment();
-            }
             super.onSwipeLeft();
         }
 
         @Override
         public void onSwipeRight() {
-            if(!DataStoreg.quoteSpeckCursor.isFirst()){
 
-                DataStoreg.quoteSpeckCursor.moveToPrevious();
-                ft = getSupportFragmentManager().beginTransaction();
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                ft.setCustomAnimations(R.anim.show_fragment_from_left_animation, R.anim.hide_fragment_to_right_animation);
-
-
-                commitQuoteFragment();
-            }
             super.onSwipeRight();
+        }
+    }
+    private void initializeAdLayout(){
+        LinearLayout adLinerLayout = (LinearLayout)findViewById(R.id.ads_layout_on_detail_quote);
+        if(DataStoreg.isOnline(this)){
+
+
+            if (adLinerLayout.getVisibility() == View.GONE){
+                adLinerLayout.setVisibility(View.VISIBLE);
+            }
+
+            // Создание экземпляра adView.
+            adView = new AdView(this);
+            adView.setAdUnitId(Constant.MY_AD_UNIT_ID);
+            adView.setAdSize(AdSize.BANNER);
+
+            // Добавление в разметку экземпляра adView.
+            adLinerLayout.addView(adView);
+
+            // Инициирование общего запроса.
+            AdRequest adRequest = new AdRequest.Builder().build();
+
+            // Загрузка adView с объявлением.
+            adView.loadAd(adRequest);
+        }else {
+            if (adLinerLayout.getVisibility() == View.VISIBLE){
+                adLinerLayout.setVisibility(View.GONE);
+            }
         }
     }
 }

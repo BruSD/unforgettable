@@ -31,8 +31,8 @@ public class DataStoreg {
 
         if (ni != null && ni.isConnected())
             //TODO: To showing ads returning true
-            //return true;
-            return false;
+            return true;
+            //return false;
         else
             return false;
     }

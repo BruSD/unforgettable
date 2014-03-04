@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import net.brusd.unforgettable.AdsAndAnalytics.Constant;
 import net.brusd.unforgettable.AdsAndAnalytics.GAClass;
 import net.brusd.unforgettable.AppDatabase.AppDB;
 import net.brusd.unforgettable.GlobalPackeg.DataStoreg;
+import net.brusd.unforgettable.GlobalPackeg.OnSwipeTouchListener;
 import net.brusd.unforgettable.GlobalPackeg.SharedPreferencesSticker;
 import net.brusd.unforgettable.ActivityPackeg.MainActivity;
 import net.brusd.unforgettable.R;
@@ -48,6 +50,8 @@ public class QuoteFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         parentActivity = getActivity();
         v = LayoutInflater.from(parentActivity).inflate(R.layout.fragment_qoute_news_layout, null);
+        LinearLayout swipeLinerLayout = (LinearLayout)v.findViewById(R.id.swipe_container_liner_layout);
+        swipeLinerLayout.setOnTouchListener(new FragmentSwipeDetector());
 
         appDB = AppDB.getInstance(parentActivity);
 
@@ -117,7 +121,7 @@ public class QuoteFragment extends Fragment {
 
         cursorWithQuote.moveToFirst();
 
-        quoteText.setText(" -" + cursorWithQuote.getString(1));
+        quoteText.setText(" - " + cursorWithQuote.getString(1));
         quoteSorceText.setText(Html.fromHtml("&#169;") +cursorWithQuote.getString(2));
         curentQuoteID = cursorWithQuote.getInt(0);
 
@@ -200,4 +204,17 @@ public class QuoteFragment extends Fragment {
         return isActualQuoteId;
     }
 
+    private class FragmentSwipeDetector extends OnSwipeTouchListener {
+        @Override
+        public void onSwipeLeft() {
+            super.onSwipeLeft();
+            ((DetailsQuoteActivity)parentActivity).onSwipeLeftDetected();
+        }
+
+        @Override
+        public void onSwipeRight() {
+            super.onSwipeRight();
+            ((DetailsQuoteActivity)parentActivity).onSwipeRightDetected();
+        }
+    }
 }

@@ -15,6 +15,7 @@
             android:id="@+id/ads_layout"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:visibility="gone"
             android:orientation="horizontal"
             android:layout_centerInParent="true"
             android:layout_alignParentBottom="true"
@@ -87,7 +88,13 @@
 
                 style="@style/ButtonDrawerStyle"
                 />
+            <LinearLayout
+                android:id="@+id/empty_liner_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
+                </LinearLayout>
 
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

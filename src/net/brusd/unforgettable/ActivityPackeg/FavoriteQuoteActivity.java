@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import net.brusd.unforgettable.AdsAndAnalytics.AdMobAds;
+import net.brusd.unforgettable.AdsAndAnalytics.AllMobAds;
 import net.brusd.unforgettable.AppDatabase.AppDB;
 import net.brusd.unforgettable.GlobalPackeg.DataStoreg;
 import net.brusd.unforgettable.FragmentPackeg.FavoriteQuoteFragment;
@@ -42,7 +42,7 @@ public class FavoriteQuoteActivity extends ActionBarActivity{
     private RelativeLayout swipeContainer;
 
 
-    private AdMobAds adMobAds;
+    private AllMobAds allMobAds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,19 +71,19 @@ public class FavoriteQuoteActivity extends ActionBarActivity{
         tryCommitFavoriteQuoteFragmentFirstTime();
 
         LinearLayout adLinerLayout = (LinearLayout)findViewById(R.id.ads_layout_on_favorite_quote);
-        adMobAds = new AdMobAds(this, adLinerLayout);
+        allMobAds = new AllMobAds(this, adLinerLayout);
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        adMobAds.createAdView();
+        allMobAds.createAdView();
     }
     @Override
     protected void onDestroy() {
         super.onPause();
-        adMobAds.destroiAdView();
+        allMobAds.destroiAdView();
     }
 
     private void checkAvailableNavigationButton(){

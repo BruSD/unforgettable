@@ -76,7 +76,7 @@ public class FavoriteQuoteFragment extends Fragment {
 
 
 
-            favoriteQuoteText.setText(" -" + DataStoreg.cursorWithOneFavoriteQuote.getString(1));
+            favoriteQuoteText.setText(" - " + DataStoreg.cursorWithOneFavoriteQuote.getString(1));
             favoriteQuoteSorceText.setText(Html.fromHtml("&#169;") + DataStoreg.cursorWithOneFavoriteQuote.getString(2));
 
 

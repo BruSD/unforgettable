@@ -5,6 +5,7 @@ package net.brusd.unforgettable.ActivityPackeg;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -18,7 +19,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 
-import net.brusd.unforgettable.AdsAndAnalytics.AdMobAds;
+import net.brusd.unforgettable.AdsAndAnalytics.AllMobAds;
 import net.brusd.unforgettable.AppDatabase.AppDB;
 import net.brusd.unforgettable.FragmentPackeg.FavoriteQuoteFragment;
 import net.brusd.unforgettable.FragmentPackeg.QuoteFragment;
@@ -43,9 +44,9 @@ public class MainActivity extends ActionBarActivity {
 
 
     private static AppDB appDB = null;
-    private AdMobAds adMobAds;
 
 
+    private  Drawable backgroundUnSelectedButton, backgroundSelectedButton ;
 
 //region Activities methods
     /**
@@ -55,8 +56,8 @@ public class MainActivity extends ActionBarActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity_layout);
-
-
+        backgroundUnSelectedButton = this.getResources().getDrawable(R.drawable.selector_drawer_layout_button);
+        backgroundSelectedButton = this.getResources().getDrawable(R.drawable.drawer_navigation_selected_item);
 
 
         mDrawerTitle = getString(R.string.drawer_open);
@@ -68,10 +69,10 @@ public class MainActivity extends ActionBarActivity {
             commitQuoteFragment();
         }
         initialDrawerContent();
-        initializeAdMob();
 
-        LinearLayout adLinerLayout = (LinearLayout)findViewById(R.id.ads_layout);
-        adMobAds = new AdMobAds(this, adLinerLayout);
+
+
+
 
 
     }
@@ -81,14 +82,14 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        adMobAds.createAdView();
+
         getSupportActionBar().setTitle(mTitle);
 
     }
     @Override
     protected void onDestroy() {
         super.onPause();
-        adMobAds.destroiAdView();
+
     }
     private void setActualActionBarTitle(String title){
         mTitle = title;
@@ -108,6 +109,7 @@ public class MainActivity extends ActionBarActivity {
                 R.string.drawer_open,  /* "open drawer" description */
                 R.string.app_name  /* "close drawer" description */
         ){
+
             @Override
             public void onDrawerOpened(View drawerView) {
                 getSupportActionBar().setTitle(mDrawerTitle);
@@ -126,6 +128,17 @@ public class MainActivity extends ActionBarActivity {
                 showFavoriteButton.setOnClickListener(new showFavoriteQuoteOnClickListener());
                 widgetSettingButton.setOnClickListener(new widgetSettingOnClickListener());
                 aboutAppButton.setOnClickListener(new aboutAppOnClickListener());
+
+
+                LinearLayout emptyLinerLayout = (LinearLayout)drawerView.findViewById(R.id.empty_liner_layout);
+                emptyLinerLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDrawerLayout.closeDrawers();
+                    }
+                });
+
+
 
             }
             @Override
@@ -151,8 +164,17 @@ public class MainActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-    }
 
+    }
+    private void setBackgroundForDraverNaviagtionButton(){
+
+        quoteButton.setBackgroundDrawable(backgroundUnSelectedButton);
+        themeButton.setBackgroundDrawable(backgroundUnSelectedButton);
+        userThemeButton.setBackgroundDrawable(backgroundUnSelectedButton);
+        showFavoriteButton.setBackgroundDrawable(backgroundUnSelectedButton);
+        widgetSettingButton.setBackgroundDrawable(backgroundUnSelectedButton);
+        aboutAppButton.setBackgroundDrawable(backgroundUnSelectedButton);
+    }
 
 
     class showQuoteOnClickListener implements View.OnClickListener{
@@ -161,6 +183,8 @@ public class MainActivity extends ActionBarActivity {
         public void onClick(View view) {
             mDrawerLayout.closeDrawers();
             commitQuoteFragment();
+            setBackgroundForDraverNaviagtionButton();
+            quoteButton.setBackgroundDrawable(backgroundSelectedButton);
         }
     }
     class showThemeOnClickListener implements View.OnClickListener{
@@ -169,6 +193,8 @@ public class MainActivity extends ActionBarActivity {
         public void onClick(View view) {
             mDrawerLayout.closeDrawers();
             commitThemeFragment();
+            setBackgroundForDraverNaviagtionButton();
+            themeButton.setBackgroundDrawable(backgroundSelectedButton);
         }
     }
     class showUserThemeOnClickListener implements View.OnClickListener{
@@ -177,6 +203,7 @@ public class MainActivity extends ActionBarActivity {
         public void onClick(View view) {
             mDrawerLayout.closeDrawers();
             commitUserThemeFragment();
+            setBackgroundForDraverNaviagtionButton();
         }
     }
     class showFavoriteQuoteOnClickListener implements View.OnClickListener{
@@ -186,6 +213,7 @@ public class MainActivity extends ActionBarActivity {
             mDrawerLayout.closeDrawers();
             Intent intent = new Intent(MainActivity.this, FavoriteQuoteActivity.class);
             startActivity(intent);
+            setBackgroundForDraverNaviagtionButton();
 
         }
     }
@@ -298,9 +326,7 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    private void initializeAdMob(){
 
-    }
 
 
 

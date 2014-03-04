@@ -14,14 +14,25 @@
        android:orientation="horizontal"
        android:padding="5dp"
        >
-       <TextView
-           android:id="@+id/theme_name_in_widget_text_view"
+       <ImageButton
+           android:id="@+id/show_quote_detail_image_button"
+
            android:layout_width="match_parent"
            android:layout_height="match_parent"
-           android:textAppearance="?android:attr/textAppearanceSmall"
+           android:src="@drawable/selector_button_theme_details"
+           android:background="#00000000"
+           android:layout_weight="3"
+           android:visibility="gone"
+           android:scaleType="fitCenter"
+           android:adjustViewBounds="true"/>
+       <TextView
+           android:id="@+id/quote_source_widget_text_view"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:gravity="center"
+           android:text=""
            android:layout_weight="1"
-           android:textStyle="italic|bold"
-           android:singleLine="true"
+           android:textAppearance="?android:attr/textAppearanceSmall"
            />
        <ImageButton
            android:id="@+id/favorite_widget_image_button"
@@ -64,14 +75,7 @@
                android:layout_gravity="left"
                android:textAppearance="?android:attr/textAppearanceMedium"
                android:text=""/>
-           <TextView
-               android:id="@+id/quote_source_widget_text_view"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:gravity="right"
-               android:text=""
-               android:textAppearance="?android:attr/textAppearanceSmall"
-               />
+
         </LinearLayout>
 
 </LinearLayout>

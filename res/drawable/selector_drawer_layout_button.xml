@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@android:drawable/list_selector_background"  android:state_pressed="true"></item>
+    <item android:drawable="@drawable/drawer_navigation_selected_item"  android:state_pressed="true"></item>
     <item android:drawable="@android:color/transparent"></item>
 </selector>

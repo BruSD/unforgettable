@@ -26,7 +26,11 @@ public class ThemeSimpleAdapter extends SimpleAdapter {
     Activity activity = null;
     List<? extends HashMap<String, ?>> data = null;
 
-    public ThemeSimpleAdapter(Activity _activity, List<? extends HashMap<String, ?>> _data, int resource, String[] from, int[] to) {
+    public ThemeSimpleAdapter(Activity _activity,
+                              List<? extends HashMap<String, ?>> _data,
+                              int resource,
+                              String[] from,
+                              int[] to) {
         super(_activity, _data, resource, from, to);
         this.activity =_activity;
         this.data = _data;
